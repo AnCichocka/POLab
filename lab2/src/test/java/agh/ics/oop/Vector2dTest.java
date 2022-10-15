@@ -11,34 +11,34 @@ class Vector2dTest {
     void equals1(){
         Vector2d v1 = new Vector2d(1,2);
         Vector2d v2 = new Vector2d(1,2);
-        assertEquals(v1.equals(v2), true);
+        assertEquals(v1, v2);
     }
 
     @Test
     void equals2(){
         Vector2d v1 = new Vector2d(1,2);
-        assertEquals(v1.equals(v1), true);
+        assertTrue(v1.equals(v1));
     }
 
     @Test
     void equals3(){
         Vector2d v1 = new Vector2d(1,2);
         Vector2d v2 = new Vector2d(6,2);
-        assertEquals(v1.equals(v2), false);
+        assertFalse(v1.equals(v2));
     }
 
     @Test
     void equals4(){
         Vector2d v1 = new Vector2d(1,2);
         Vector2d v2 = new Vector2d(1,4);
-        assertEquals(v1.equals(v2), false);
+        assertFalse(v1.equals(v2));
     }
 
     @Test
     void equals5(){
         Vector2d v1 = new Vector2d(1,2);
         Vector2d v2 = new Vector2d(6,4);
-        assertEquals(v1.equals(v2), false);
+        assertFalse(v1.equals(v2));
     }
 
     //////////////////////////////////////////////////////TO STRING
@@ -67,70 +67,70 @@ class Vector2dTest {
     @Test
     void precedes1(){
         Vector2d v1 = new Vector2d(1,2);
-        assertEquals(v1.precedes(v1), true);
+        assertTrue(v1.precedes(v1));
     }
 
     @Test
     void precedes2(){
         Vector2d v1 = new Vector2d(1,2);
         Vector2d v2 = new Vector2d(2,2);
-        assertEquals(v1.precedes(v2), true);
+        assertTrue(v1.precedes(v2));
     }
 
     @Test
     void precedes3(){
         Vector2d v1 = new Vector2d(4,2);
         Vector2d v2 = new Vector2d(2,2);
-        assertEquals(v1.precedes(v2), false);
+        assertFalse(v1.precedes(v2));
     }
 
     @Test
     void precedes4(){
         Vector2d v1 = new Vector2d(2,7);
         Vector2d v2 = new Vector2d(2,2);
-        assertEquals(v1.precedes(v2), false);
+        assertFalse(v1.precedes(v2));
     }
 
     @Test
     void precedes5(){
         Vector2d v1 = new Vector2d(9,7);
         Vector2d v2 = new Vector2d(2,2);
-        assertEquals(v1.precedes(v2), false);
+        assertFalse(v1.precedes(v2));
     }
 
     //////////////////////////////////////////////////////FOLLOWS
     @Test
     void follows1(){
         Vector2d v1 = new Vector2d(1,2);
-        assertEquals(v1.follows(v1), true);
+        assertTrue(v1.follows(v1));
     }
 
     @Test
     void follows2(){
         Vector2d v1 = new Vector2d(3,2);
         Vector2d v2 = new Vector2d(1,2);
-        assertEquals(v1.follows(v2), true);
+        assertTrue(v1.follows(v2));
     }
 
     @Test
     void follows3(){
         Vector2d v1 = new Vector2d(0,2);
         Vector2d v2 = new Vector2d(1,2);
-        assertEquals(v1.follows(v2), false);
+        assertFalse(v1.follows(v2));
     }
 
     @Test
     void follows4(){
         Vector2d v1 = new Vector2d(1,0);
         Vector2d v2 = new Vector2d(1,2);
-        assertEquals(v1.follows(v2), false);
+        assertFalse(v1.follows(v2));
     }
 
     @Test
     void follows5(){
         Vector2d v1 = new Vector2d(0,0);
         Vector2d v2 = new Vector2d(1,2);
-        assertEquals(v1.follows(v2), false);
+        assertFalse(v1.follows(v2));
     }
 
     //////////////////////////////////////////////////////UPPER RIGHT
