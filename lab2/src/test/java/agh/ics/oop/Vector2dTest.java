@@ -217,6 +217,13 @@ class Vector2dTest {
         assertEquals(v1.subtract(v2), new Vector2d(-1,-6));
     }
 
+    @Test
+    void subtract4(){
+        Vector2d v1 = new Vector2d(5,5);
+        Vector2d v2 = new Vector2d(3,7);
+        assertEquals(v1.subtract(v2), new Vector2d(2,-2));
+    }
+
     //////////////////////////////////////////////////////OPPOSITE
     @Test
     void opposite1(){
