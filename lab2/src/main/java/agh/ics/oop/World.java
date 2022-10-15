@@ -75,22 +75,11 @@ public class World {
 //        Direction[] convertedArgs = convert(args);
 //        run(convertedArgs);
 
-//        Vector2d position1 = new Vector2d(1,2);
-//        System.out.println(position1);
-//        Vector2d position2 = new Vector2d(-2,1);
-//        System.out.println(position2);
-//        System.out.println(position1.add(position2));
-
-        MapDirection m1 = MapDirection.SOUTH;
-        System.out.println(m1.toUnitVector());
-        System.out.println(m1.previous());
-        System.out.println(m1.next());
-
-        Vector2d v = new Vector2d(1,2);
-        Vector2d v1 = new Vector2d(1,2);
-        System.out.println(Objects.equals(v,v1));
-
-        System.out.println(v.follows(v));
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
 
 
     }
