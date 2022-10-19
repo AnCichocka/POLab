@@ -67,20 +67,28 @@ public class World {
 
     public static void main(String[] args){
 
-        //System.out.println("system wystartował");
-        //run1(args);
-        //System.out.println("system zakończył działanie");
-        //System.out.println();
+        //lab1
+//        System.out.println("system wystartował");
+//        run1(args);
+//        System.out.println("system zakończył działanie");
+//        System.out.println();
 
 //        Direction[] convertedArgs = convert(args);
 //        run(convertedArgs);
 
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
 
+        //lab2
+//        Vector2d position1 = new Vector2d(1,2);
+//        System.out.println(position1);
+//        Vector2d position2 = new Vector2d(-2,1);
+//        System.out.println(position2);
+//        System.out.println(position1.add(position2));
 
+        //lab3
+        Animal a = new Animal();
+        Vector2d v1 = new Vector2d(2,2);
+        System.out.println(a.isAt(v1));
+        Vector2d v2 = new Vector2d(3,2);
+        System.out.println(a.isAt(v2));
     }
 }
