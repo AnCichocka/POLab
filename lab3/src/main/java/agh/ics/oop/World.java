@@ -85,10 +85,64 @@ public class World {
 //        System.out.println(position1.add(position2));
 
         //lab3
-        Animal a = new Animal();
-        Vector2d v1 = new Vector2d(2,2);
-        System.out.println(a.isAt(v1));
-        Vector2d v2 = new Vector2d(3,2);
-        System.out.println(a.isAt(v2));
+//        Animal a = new Animal();
+//        Vector2d v1 = new Vector2d(2,2);
+//        System.out.println(a.isAt(v1));
+//        Vector2d v2 = new Vector2d(3,2);
+//        System.out.println(a.isAt(v2));
+
+        String a = "a";
+        String b = "b";
+        System.out.println(a+b);
+
+        Integer c = 200;
+        Integer d = 200;
+        System.out.println(c == d);
+        System.out.println(c.equals(d));
+        int[] tab = new int[10];
+
+        for (int i=0; i<10; i++){
+            System.out.println(tab[i]);
+        }
+
+        Vector2d[] tab1 = new Vector2d[10];
+
+        for (int i=0; i<10; i++){
+            System.out.println(tab1[i]);
+        }
+
+        int[] t1 = {1,2,3};
+        int[] t2 = {1,2,3};
+
+        System.out.println(t1 == t2);
+        System.out.println(t1.equals(t2));
+        System.out.println(Arrays.equals(t1,t2));
+
+        String e = "a";
+        String f = "a";
+        System.out.println(e == f);
+        System.out.println();
+
+        String a1 = "1";
+        String a2 = "2";
+        String a3 = a1+a2;
+        String a4 = "12";
+        System.out.println(a4 == a3);
+        System.out.println(a4.equals(a3));
+
+
+        StringBuilder builder1 = new StringBuilder();
+        StringBuilder builder2 = builder1;
+        builder1.append("km");
+        builder1.append("div");
+        builder1.append("hour");
+
+        if(builder1 == builder2){
+            System.out.println("Fabryki łańcuchów są równe");
+        }
+
+        System.out.println(builder1.toString());
+
+
     }
 }
