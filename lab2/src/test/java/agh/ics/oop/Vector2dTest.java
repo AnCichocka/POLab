@@ -6,6 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Vector2dTest {
 
+    //ex. vectorCantBeAdded
+    //given
+
+    //when
+
+    //then
+
     //////////////////////////////////////////////////////EQUALS
     @Test
     void equals1(){
