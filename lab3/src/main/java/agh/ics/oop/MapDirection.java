@@ -6,18 +6,18 @@ enum MapDirection{
     WEST,
     EAST;
 
-//    @Override
-//    public String toString(){
-//
-//        String message = switch(this){
-//            case NORTH -> "północ";
-//            case WEST -> "zachód";
-//            case SOUTH -> "południe";
-//            case EAST -> "wschód";
-//        };
-//
-//        return message;
-//    }
+    @Override
+    public String toString(){
+
+        String message = switch(this){
+            case NORTH -> "północ";
+            case WEST -> "zachód";
+            case SOUTH -> "południe";
+            case EAST -> "wschód";
+        };
+
+        return message;
+    }
 
     public MapDirection next(){
 

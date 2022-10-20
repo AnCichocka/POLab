@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -29,33 +28,33 @@ public class World {
         }
     }
 
-    public static void run(Direction[] directions){
+    public static void run(MoveDirection[] directions){
 
-        for (Direction direction: directions){
+        for (MoveDirection direction: directions){
 
             String message = switch(direction){
-                case f -> "Zwierzak idzie do przodu";
-                case b -> "Zwierzak idzie do przodu";
-                case l -> "Zwierzak skreca w lewo";
-                case r -> "Zwierzak skreca w prawo";
+                case FORWARD -> "Zwierzak idzie do przodu";
+                case BACKWARD -> "Zwierzak idzie do przodu";
+                case LEFT -> "Zwierzak skreca w lewo";
+                case RIGHT -> "Zwierzak skreca w prawo";
             };
 
             System.out.println(message);
         }
     }
 
-    public static Direction[] convert(String[] directions){
+    public static MoveDirection[] convert(String[] directions){
 
-        Direction[] argsToRun = new Direction[directions.length];
+        MoveDirection[] argsToRun = new MoveDirection[directions.length];
         int counter = 0;
 
         for (String direction: directions){
             if (Objects.equals(direction, "f") || Objects.equals(direction, "b") || Objects.equals(direction, "l") || Objects.equals(direction, "r")){
                 switch (direction){
-                    case "f" -> argsToRun[counter] = Direction.f;
-                    case "b" -> argsToRun[counter] = Direction.b;
-                    case "l" -> argsToRun[counter] = Direction.l;
-                    case "r" -> argsToRun[counter] = Direction.r;
+                    case "f" -> argsToRun[counter] = MoveDirection.FORWARD;
+                    case "b" -> argsToRun[counter] = MoveDirection.BACKWARD;
+                    case "l" -> argsToRun[counter] = MoveDirection.LEFT;
+                    case "r" -> argsToRun[counter] = MoveDirection.RIGHT;
                 }
                 counter++;
             }
@@ -67,24 +66,6 @@ public class World {
 
     public static void main(String[] args){
 
-        //lab1
-//        System.out.println("system wystartował");
-//        run1(args);
-//        System.out.println("system zakończył działanie");
-//        System.out.println();
-
-//        Direction[] convertedArgs = convert(args);
-//        run(convertedArgs);
-
-
-        //lab2
-//        Vector2d position1 = new Vector2d(1,2);
-//        System.out.println(position1);
-//        Vector2d position2 = new Vector2d(-2,1);
-//        System.out.println(position2);
-//        System.out.println(position1.add(position2));
-
-        //lab3
         Animal animalCat = new Animal();
         System.out.println(animalCat);
         animalCat.move(MoveDirection.RIGHT);
@@ -93,11 +74,8 @@ public class World {
         animalCat.move(MoveDirection.FORWARD);
         System.out.println(animalCat);
 
-        OpotionsParser parser = new OpotionsParser();
-        MoveDirection[] parsedArgs = parser.parse(args);
-//        for (MoveDirection direction : parsedArgs){
-//            System.out.println(direction);
-//        }
+//        OpotionsParser parser = new OpotionsParser();
+//        MoveDirection[] parsedArgs = parser.parse(args);
 
     }
 
