@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OpotionsParserTest {
+class OptionsParserTest {
 
     @Test
     void IsParsingCorrectWithCorrectInput1(){
-        OpotionsParser parser = new OpotionsParser();
+        OptionsParser parser = new OptionsParser();
         String[] beforeParsing = {"f", "f", "l", "r"};
 
         MoveDirection[] afterParsing = parser.parse(beforeParsing);
@@ -18,8 +18,8 @@ class OpotionsParserTest {
     }
 
     @Test
-    void IsParsingCorrectWithCorrectInput(){
-        OpotionsParser parser = new OpotionsParser();
+    void IsParsingCorrectWithCorrectInput2(){
+        OptionsParser parser = new OptionsParser();
         String[] beforeParsing = {"b", "r", "f", "left", "forward", "backward", "l", "right"};
 
         MoveDirection[] afterParsing = parser.parse(beforeParsing);
@@ -29,8 +29,8 @@ class OpotionsParserTest {
     }
 
     @Test
-    void IsParsingCorrectWithIncorrectInputs(){
-        OpotionsParser parser = new OpotionsParser();
+    void IsParsingCorrectWithIncorrectInput(){
+        OptionsParser parser = new OptionsParser();
         String[] beforeParsing = {"b", "ab", "r", "f", "tomato", "left"};
 
         MoveDirection[] afterParsing = parser.parse(beforeParsing);

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
 
-    ///////////////////////////////////////////////////ORIENTATION - move() right, left
+    ///////////////////////////////////////////////////ORIENTATION
     @Test
     void IsOrientationInMoveRightCorrect(){
 
@@ -16,14 +16,17 @@ class AnimalTest {
         MapDirection expectedOrientation = MapDirection.EAST;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.EAST);
         a.move(MoveDirection.RIGHT);
         expectedOrientation = MapDirection.SOUTH;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.SOUTH);
         a.move(MoveDirection.RIGHT);
         expectedOrientation = MapDirection.WEST;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.WEST);
         a.move(MoveDirection.RIGHT);
         expectedOrientation = MapDirection.NORTH;
         assertEquals(a.getOrientation(),expectedOrientation);
@@ -38,14 +41,17 @@ class AnimalTest {
         MapDirection expectedOrientation = MapDirection.WEST;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.WEST);
         a.move(MoveDirection.LEFT);
         expectedOrientation = MapDirection.SOUTH;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.SOUTH);
         a.move(MoveDirection.LEFT);
         expectedOrientation = MapDirection.EAST;
         assertEquals(a.getOrientation(),expectedOrientation);
 
+        a.setOrientation(MapDirection.EAST);
         a.move(MoveDirection.LEFT);
         expectedOrientation = MapDirection.NORTH;
         assertEquals(a.getOrientation(),expectedOrientation);
