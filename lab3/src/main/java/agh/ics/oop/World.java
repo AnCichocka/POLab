@@ -68,14 +68,25 @@ public class World {
 
         Animal animalCat = new Animal();
         System.out.println(animalCat);
-        animalCat.move(MoveDirection.RIGHT);
-        animalCat.move(MoveDirection.FORWARD);
-        animalCat.move(MoveDirection.FORWARD);
-        animalCat.move(MoveDirection.FORWARD);
+//
+//        animalCat.move(MoveDirection.RIGHT);
+//        animalCat.move(MoveDirection.FORWARD);
+//        animalCat.move(MoveDirection.FORWARD);
+//        animalCat.move(MoveDirection.FORWARD);
+//        System.out.println(animalCat);
+
+        OptionsParser parser = new OptionsParser();
+        MoveDirection[] parsedArgs = parser.parse(args);
+
+        for(MoveDirection direction : parsedArgs){
+            animalCat.move(direction);
+        }
+
         System.out.println(animalCat);
 
-//        OpotionsParser parser = new OpotionsParser();
-//        MoveDirection[] parsedArgs = parser.parse(args);
+        // 10.
+        // Wystarczy stworzyć tablicę dwuwymiarową 5*5, w polach tablicy trzymać False jeśli nie ma na nim zwierzaka, a True jeśli jest.
+        // Przed move sprawdzać czy pole jest wolne (False).
 
     }
 

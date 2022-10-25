@@ -1,7 +1,6 @@
 package agh.ics.oop;
 
 import java.util.Objects;
-import java.util.Vector;
 
 public class Animal {
 
@@ -34,10 +33,8 @@ public class Animal {
 
     public boolean isAt(Vector2d position){
 
-        if (Objects.equals(this.position, position)){
-            return true;
-        }
-        return false;
+        return Objects.equals(this.position, position);
+
     }
 
     public void move(MoveDirection direction){
@@ -56,13 +53,12 @@ public class Animal {
                 }
                 break;
             case BACKWARD:
-                newPosition = this.position.add(this.orientation.toUnitVector().opposite());
+                newPosition = this.position.subtract(this.orientation.toUnitVector());
                 if (newPosition.precedes(new Vector2d(4,4)) && newPosition.follows(new Vector2d(0,0))){
                     this.position = newPosition;
                 }
                 break;
         }
-        //System.out.println(this);
     }
 
 }
