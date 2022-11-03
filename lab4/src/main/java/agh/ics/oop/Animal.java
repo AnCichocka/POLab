@@ -9,7 +9,7 @@ public class Animal {
     private Vector2d position;
     private IWorldMap map;
 
-//    //bez sensu, bo wszystkie zwierzaki są na mapie
+//    //bez sensu, bo wszystkie zwierzaki poruszają się po mapie, mogły by powowdować kolizje, których nie można by było wykryć
 //    public Animal(){
 //        this.orientation = MapDirection.NORTH;
 //        this.position = new Vector2d(2,2);
@@ -22,7 +22,6 @@ public class Animal {
         this.position = initialPosition;
         this.map = map;
     }
-
 
     public Vector2d getPosition() {
         return new Vector2d(this.position.x, this.position.y);

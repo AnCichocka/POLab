@@ -17,6 +17,7 @@ public class SimulationEngine implements IEngine{
     private int addAndReturnNumberOfAnimals(){
 
         int numberOfAnimalsOnMap = 0;
+
         for (Vector2d animalVector : animalsVectors){
             Animal animalToInsert = new Animal(this.map, animalVector);
             if(this.map.place(animalToInsert )){
@@ -29,10 +30,8 @@ public class SimulationEngine implements IEngine{
     public void run(){
 
         int numberOfAnimalsOnMap = this.addAndReturnNumberOfAnimals();
-        System.out.println(map);
         for (int i = 0; i < this.moveDirections.length; i++){
             this.animalsOnMap.get(i%numberOfAnimalsOnMap).move(this.moveDirections[i]);
-            System.out.println(map);
         }
     }
 }

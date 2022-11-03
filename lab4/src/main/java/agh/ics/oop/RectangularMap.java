@@ -26,22 +26,18 @@ public class RectangularMap implements IWorldMap{
         return position.follows(lowerLeft) && position.precedes(upperRight) && !this.isOccupied(position);
 
     }
-
-    public boolean isOccupied(Vector2d position) {
-        for (Animal animalInMap : this.animals){
-            if (animalInMap.getPosition().equals(position)){
-                return true;
-            }
-        }
-        return false;
-    }
     public boolean place(Animal animal){
 
-        if (this.canMoveTo(animal.getPosition()) ) {
+        if (this.canMoveTo(animal.getPosition())) {
             this.animals.add(animal);
             return true;
         }
         return false;
+    }
+    public boolean isOccupied(Vector2d position) {
+
+        return this.objectAt(position) != null;
+
     }
     public Object objectAt(Vector2d position){
         for (Animal animalInMap : this.animals){
@@ -54,7 +50,9 @@ public class RectangularMap implements IWorldMap{
 
     @Override
     public String toString(){
+
         return this.visualizer.draw(this.lowerLeft, this.upperRight);
+
     }
 
 }
