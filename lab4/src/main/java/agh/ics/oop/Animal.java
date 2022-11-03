@@ -1,35 +1,43 @@
 package agh.ics.oop;
 
 import java.util.Objects;
+import java.util.Vector;
 
 public class Animal {
 
     private MapDirection orientation;
     private Vector2d position;
+    private IWorldMap map;
 
-    public Animal(){
+//    //bez sensu, bo wszystkie zwierzaki są na mapie
+//    public Animal(){
+//        this.orientation = MapDirection.NORTH;
+//        this.position = new Vector2d(2,2);
+//    }
+    public Animal(IWorldMap map){
+        this(map, new Vector2d(2,2));
+    }
+    public Animal(IWorldMap map, Vector2d initialPosition){
         this.orientation = MapDirection.NORTH;
-        this.position = new Vector2d(2,2);
+        this.position = initialPosition;
+        this.map = map;
     }
 
-    public MapDirection getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(MapDirection orientation) {
-        this.orientation = orientation;
-    }
 
     public Vector2d getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2d position) {
-        this.position = position;
+        return new Vector2d(this.position.x, this.position.y);
     }
 
     @Override
-    public String toString(){ return "%s %s".formatted(this.position, this.orientation); }
+    public String toString(){
+        String stringMapDirection = switch(this.orientation){
+            case NORTH -> "N";
+            case WEST -> "W";
+            case SOUTH-> "S";
+            case EAST -> "E";
+        };
+        return stringMapDirection;
+    }
 
     public boolean isAt(Vector2d position){
 
@@ -39,28 +47,20 @@ public class Animal {
 
     public void move(MoveDirection direction){
 
-        switch (direction) {
-            case RIGHT:
-                this.orientation = this.orientation.next();
-                break;
-            case LEFT:
-                this.orientation = this.orientation.previous();
-                break;
-            case FORWARD:
-                Vector2d newPosition = this.position.add(this.orientation.toUnitVector());
-                if (newPosition.precedes(new Vector2d(4,4)) && newPosition.follows(new Vector2d(0,0))){
-                    this.position = newPosition;
-                }
-                break;
-            case BACKWARD:
-                newPosition = this.position.subtract(this.orientation.toUnitVector());
-                if (newPosition.precedes(new Vector2d(4,4)) && newPosition.follows(new Vector2d(0,0))){
-                    this.position = newPosition;
-                }
-                break;
-        }
-    }
+        Vector2d newPosition = position;
 
+        switch (direction) {
+            case RIGHT -> { this.orientation = this.orientation.next(); }
+            case LEFT -> { this.orientation = this.orientation.previous(); }
+            case FORWARD -> { newPosition = this.position.add(this.orientation.toUnitVector()); }
+            case BACKWARD -> { newPosition = this.position.subtract(this.orientation.toUnitVector()); }
+        }
+
+        if (map.canMoveTo(newPosition)){
+            this.position = newPosition;
+        }
+
+    }
 }
 
 

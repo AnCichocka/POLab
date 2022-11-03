@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.Objects;
+import java.util.Vector;
 
 public class Animal {
 
@@ -38,27 +39,18 @@ public class Animal {
     }
 
     public void move(MoveDirection direction){
-
+        Vector2d newPosition = position;
         switch (direction) {
-            case RIGHT:
-                this.orientation = this.orientation.next();
-                break;
-            case LEFT:
-                this.orientation = this.orientation.previous();
-                break;
-            case FORWARD:
-                Vector2d newPosition = this.position.add(this.orientation.toUnitVector());
-                if (newPosition.precedes(new Vector2d(4,4)) && newPosition.follows(new Vector2d(0,0))){
-                    this.position = newPosition;
-                }
-                break;
-            case BACKWARD:
-                newPosition = this.position.subtract(this.orientation.toUnitVector());
-                if (newPosition.precedes(new Vector2d(4,4)) && newPosition.follows(new Vector2d(0,0))){
-                    this.position = newPosition;
-                }
-                break;
+            case RIGHT -> {this.orientation = this.orientation.next();}
+            case LEFT -> {this.orientation = this.orientation.previous();}
+            case FORWARD -> {newPosition = this.position.add(this.orientation.toUnitVector());}
+            case BACKWARD -> {newPosition = this.position.subtract(this.orientation.toUnitVector());}
         }
+        if (newPosition.precedes(World.UPPER_BOUND) && newPosition.follows(World.LOWER_BOUND)){
+            this.position = newPosition;
+        }
+        //or upper and lower, public static World
+        //position = position.lowerLeft(World.LOWER_BOUND).upperRight(World.UPPER_BOUND)
     }
 
 }

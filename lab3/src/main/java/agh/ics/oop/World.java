@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class World {
 
+    public static final Vector2d UPPER_BOUND = new Vector2d(4,4);
+    public static final Vector2d LOWER_BOUND = new Vector2d(0,0);
     public static void run1(String[] directions){
 //        System.out.println("Zwierzę idzie do przodu");
 

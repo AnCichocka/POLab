@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class World {
 
+    public static final Vector2d UPPER_BOUND = new Vector2d(4,4);
+    public static final Vector2d LOWER_BOUND = new Vector2d(0,0);
     public static void run1(String[] directions){
 //        System.out.println("Zwierzę idzie do przodu");
 
@@ -66,29 +68,12 @@ public class World {
 
     public static void main(String[] args){
 
-        Animal animalCat = new Animal();
-        System.out.println(animalCat);
-//
-//        animalCat.move(MoveDirection.RIGHT);
-//        animalCat.move(MoveDirection.FORWARD);
-//        animalCat.move(MoveDirection.FORWARD);
-//        animalCat.move(MoveDirection.FORWARD);
-//        System.out.println(animalCat);
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
 
-        OptionsParser parser = new OptionsParser();
-        MoveDirection[] parsedArgs = parser.parse(args);
-
-        for(MoveDirection direction : parsedArgs){
-            animalCat.move(direction);
-        }
-
-        System.out.println(animalCat);
-
-        // 10.
-        // Wystarczy stworzyć tablicę dwuwymiarową 5*5, w polach tablicy trzymać False jeśli nie ma na nim zwierzaka, a True jeśli jest.
-        // Przed move sprawdzać czy pole jest wolne (False).
 
     }
-
-
 }
