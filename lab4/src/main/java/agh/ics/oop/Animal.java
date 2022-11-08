@@ -9,7 +9,7 @@ public class Animal {
     private Vector2d position;
     private IWorldMap map;
 
-//    //bez sensu, bo wszystkie zwierzaki poruszają się po mapie, mogły by powowdować kolizje, których nie można by było wykryć
+//    //konstruktor niepotrzeby, nie ma możliwości wykluczenia dwóch zwierzaków na tym samym polu
 //    public Animal(){
 //        this.orientation = MapDirection.NORTH;
 //        this.position = new Vector2d(2,2);

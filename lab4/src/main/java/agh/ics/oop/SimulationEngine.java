@@ -20,7 +20,7 @@ public class SimulationEngine implements IEngine{
 
         for (Vector2d animalVector : animalsVectors){
             Animal animalToInsert = new Animal(this.map, animalVector);
-            if(this.map.place(animalToInsert )){
+            if(this.map.place(animalToInsert)){
                 this.animalsOnMap.add(animalToInsert);
                 numberOfAnimalsOnMap++;
             }

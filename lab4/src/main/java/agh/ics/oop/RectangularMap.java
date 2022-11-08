@@ -17,7 +17,7 @@ public class RectangularMap implements IWorldMap{
         this.height = height;
         this.lowerLeft = new Vector2d(0, 0);
         this.upperRight = new Vector2d(width-1, height-1);
-        this.animals = new ArrayList<Animal>();
+        this.animals = new ArrayList<>();
         this.visualizer = new MapVisualizer(this);
     }
 
