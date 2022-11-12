@@ -28,10 +28,13 @@ public class SimulationEngine implements IEngine{
         return numberOfAnimalsOnMap;
     }
     public void run(){
-
+//        System.out.println(this.map);
         int numberOfAnimalsOnMap = this.addAndReturnNumberOfAnimals();
         for (int i = 0; i < this.moveDirections.length; i++){
-            this.animalsOnMap.get(i%numberOfAnimalsOnMap).move(this.moveDirections[i]);
+//            System.out.println("MOVE: " + moveDirections[i]);
+            Animal animal = this.animalsOnMap.get(i%numberOfAnimalsOnMap);
+            animal.move(this.moveDirections[i]);
+//            System.out.println(this.map);
         }
     }
 }

@@ -2,7 +2,6 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class RectangularMap implements IWorldMap{
 
@@ -21,11 +20,13 @@ public class RectangularMap implements IWorldMap{
         this.visualizer = new MapVisualizer(this);
     }
 
+    @Override
     public boolean canMoveTo(Vector2d position){
 
-        return position.follows(lowerLeft) && position.precedes(upperRight) && !this.isOccupied(position);
+        return position.follows(this.lowerLeft) && position.precedes(this.upperRight) && !this.isOccupied(position);
 
     }
+    @Override
     public boolean place(Animal animal){
 
         if (this.canMoveTo(animal.getPosition())) {
@@ -34,11 +35,13 @@ public class RectangularMap implements IWorldMap{
         }
         return false;
     }
+    @Override
     public boolean isOccupied(Vector2d position) {
 
         return this.objectAt(position) != null;
 
     }
+    @Override
     public Object objectAt(Vector2d position){
         for (Animal animalInMap : this.animals){
             if (animalInMap.getPosition().equals(position)){
@@ -46,6 +49,8 @@ public class RectangularMap implements IWorldMap{
             }
         }
         return null;
+
+        //return this.animals.stream().filter(animal -> animal.getPosition().equals(position)).findFirst().orElse(null);
     }
 
     @Override
