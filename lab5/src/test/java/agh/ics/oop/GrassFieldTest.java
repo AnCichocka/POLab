@@ -19,5 +19,4 @@ class GrassFieldTest {
 
         System.out.println(map);
     }
-
 }
