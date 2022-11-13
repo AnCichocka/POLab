@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.Objects;
 import java.util.Vector;
 
-public class Animal {
+public class Animal implements IMapElement{
 
     private MapDirection orientation;
     private Vector2d position;

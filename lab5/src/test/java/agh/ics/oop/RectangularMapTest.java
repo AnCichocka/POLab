@@ -16,5 +16,7 @@ class RectangularMapTest {
 
         assertTrue(map.isOccupied(new Vector2d(0,2)));
         assertTrue(map.isOccupied(new Vector2d(2,0)));
+
+        System.out.println(map);
     }
 }

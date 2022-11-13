@@ -1,45 +1,45 @@
-//package agh.ics.oop;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//
-////extends dziedziczenie
-////implements na exchange
-//public abstract class AbstractWorldMap implements IWorldMap {
-//
-//    protected  List<Animal> animals;
-//
-////    @Override
-////    public boolean canMoveTo(Vectior2d position){
-////
-////    }
-//    //tu można współne
-//    // to co jest tu wywalamy w Animal i grass field
-////    protected List<Animal> animals;
-////    //private, ale dziedziczące klasy mają dostęp
-////
-////    @Override
-////    public boolean place(Animal animal) {
-////
-////    }
-////
-////    @Override
-////    public boolean canMoveTo(Vector2d position) {
-////        return false;
-////    }
-//    @Override
-//    public boolean isOccupied(Vector2d position) {
-//        return objectAt(position) != null;
-//    }
-//    @Override
-//    public boolean place(Animal animal){
-//
-//        if (this.canMoveTo(animal.getPosition())) {
-//            this.animals.add(animal);
-//            return true;
-//        }
-//        return false;
-//    }
-//    //can move to
-//}
+package agh.ics.oop;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractWorldMap implements IWorldMap {
+
+    protected  List<IMapElement> mapElements;
+    protected MapVisualizer visualizer;
+
+    public AbstractWorldMap(){
+        this.mapElements = new ArrayList<>();
+        this.visualizer = new MapVisualizer(this);
+    }
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        return objectAt(position) != null;
+    }
+    @Override
+    public Object objectAt(Vector2d position){
+        for (IMapElement element : this.mapElements){
+            if (element.getPosition().equals(position)){
+                return element;
+            }
+        }
+        return null;
+
+        //return this.animals.stream().filter(animal -> animal.getPosition().equals(position)).findFirst().orElse(null);
+    }
+    @Override
+    public boolean place(Animal animal) {
+        if (this.canMoveTo(animal.getPosition())) {
+            Object element = objectAt(animal.getPosition());
+            if (element instanceof Grass){
+                this.mapElements.remove(element);
+            }
+            this.mapElements.add(animal);
+            return true;
+        }
+        return false;
+    }
+    public String toString(Vector2d lowerLeft, Vector2d upperRight){
+        return this.visualizer.draw(lowerLeft, upperRight);
+    }
+}

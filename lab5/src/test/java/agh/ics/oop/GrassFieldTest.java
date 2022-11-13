@@ -16,6 +16,8 @@ class GrassFieldTest {
 
         assertTrue(map.isOccupied(new Vector2d(-1,0)));
         assertTrue(map.isOccupied(new Vector2d(1,-1)));
+
+        System.out.println(map);
     }
 
 }
