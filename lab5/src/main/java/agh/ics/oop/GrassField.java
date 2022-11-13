@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GrassField extends AbstractWorldMap{
 
@@ -16,17 +17,24 @@ public class GrassField extends AbstractWorldMap{
         PlaceGrass();
     }
     private void PlaceGrass(){
-        double max = Math.sqrt(this.n*10);
-        double min = 0;
 
-        int counter = 0;
-        while (counter < this.n){
-            Vector2d randomPosition = new Vector2d(randomFromRange(min, max), randomFromRange(min,max));
-            if (!isOccupied(randomPosition)) {
-                IMapElement grassPiece = new Grass(randomPosition);
-                mapElements.add(grassPiece);
-                counter++;
+        int bound = (int)Math.floor(Math.sqrt(this.n*10));
+        ArrayList<Vector2d> allPositions = new ArrayList<>();
+
+        for (int i = 0; i <= bound; i++){
+            for (int j = 0; j <= bound; j++){
+                allPositions.add(new Vector2d(i,j));
             }
+        }
+
+        Random random = new Random();
+
+        for (int i = 0; i < this.n; i++){
+            int randomIndex =  random.nextInt(allPositions.size() - 0) + 0;
+            Vector2d grassPosition = allPositions.get(randomIndex);
+            IMapElement grassPiece = new Grass(grassPosition);
+            mapElements.add(grassPiece);
+            allPositions.remove(grassPosition);
         }
     }
     private int randomFromRange(double max, double min){
