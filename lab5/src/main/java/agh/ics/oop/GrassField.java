@@ -5,20 +5,25 @@ import java.util.Random;
 
 public class GrassField extends AbstractWorldMap{
 
-    private final int n;
-    private Vector2d lowerLeft;
-    private Vector2d upperRight;
+    private final ArrayList<Grass> grassPieces = new ArrayList<>();
 
-    public GrassField(int numberOfFields){
-        super();
-        this.n = numberOfFields;
-        this.lowerLeft = new Vector2d(Integer.MAX_VALUE,Integer.MAX_VALUE);
-        this.upperRight = new Vector2d(Integer.MIN_VALUE,Integer.MIN_VALUE);
-        PlaceGrass();
+
+    public Object objectAt(Vector2d position) {
+        Object animalOnPosition = super.objectAt(position);
+
+        if (animalOnPosition == null) {
+            for (Grass grassPiece : this.grassPieces) {
+                if (grassPiece.getPosition().equals(position)) {
+                    return grassPiece;
+                }
+            }
+        }
+
+        return animalOnPosition;
     }
-    private void PlaceGrass(){
+    public GrassField(int n){
 
-        int bound = (int)Math.floor(Math.sqrt(this.n*10));
+        int bound = (int)Math.floor(Math.sqrt(n*10));
         ArrayList<Vector2d> allPositions = new ArrayList<>();
 
         for (int i = 0; i <= bound; i++){
@@ -29,31 +34,42 @@ public class GrassField extends AbstractWorldMap{
 
         Random random = new Random();
 
-        for (int i = 0; i < this.n; i++){
-            int randomIndex =  random.nextInt(allPositions.size() - 0) + 0;
+        for (int i = 0; i < n; i++){
+            int randomIndex =  random.nextInt(allPositions.size());
             Vector2d grassPosition = allPositions.get(randomIndex);
-            IMapElement grassPiece = new Grass(grassPosition);
-            mapElements.add(grassPiece);
+            Grass grassPiece = new Grass(grassPosition);
+            this.grassPieces.add(grassPiece);
             allPositions.remove(grassPosition);
         }
-    }
-    private int randomFromRange(double max, double min){
-        return (int)((Math.random() * (max - min)) + min);
     }
     @Override
     public boolean canMoveTo(Vector2d position) {
         return (!this.isOccupied(position) || (this.isOccupied(position) && objectAt(position) instanceof Grass));
     }
     @Override
-    public String toString(){
-        setLowerLeftAndUpperRight();
-        return super.toString(this.lowerLeft, this.upperRight);
-    }
-    private void setLowerLeftAndUpperRight(){
-
-        for(IMapElement element : this.mapElements){
-            this.lowerLeft = element.getPosition().lowerLeft(this.lowerLeft);
-            this.upperRight = element.getPosition().upperRight(this.upperRight);
+    protected Vector2d getLowerLeftBound(){
+        Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        for(Animal animal : this.animals){
+            lowerLeft = animal.getPosition().lowerLeft(lowerLeft);
         }
+        for(Grass grassPiece : this.grassPieces){
+            lowerLeft = grassPiece.getPosition().lowerLeft(lowerLeft);
+        }
+        return lowerLeft;
     }
+    @Override
+    protected Vector2d getUpperRightBound(){
+        Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        for(Animal animal : this.animals){
+            upperRight = animal.getPosition().upperRight(upperRight);
+        }
+        for(Grass grassPiece : this.grassPieces){
+            upperRight = grassPiece.getPosition().upperRight(upperRight);
+        }
+        return upperRight;
+    }
+
+    // Bounds = new bounds(newVector(0,0)...)
+    // bounds.lowerLeft
+    //metofa getLower ... ma zwracać rekord Bounds
 }
