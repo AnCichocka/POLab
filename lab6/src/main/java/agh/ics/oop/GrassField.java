@@ -2,21 +2,20 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap{
 
-    private final HashMap<Vector2d, Grass> grassPieces = new HashMap<>();
+    private final Map<Vector2d, Grass> grassPieces = new HashMap<>();
 
 
     public Object objectAt(Vector2d position) {
         Object animalOnPosition = super.objectAt(position);
-
-        if (animalOnPosition == null) {
-            return grassPieces.get(position);
+        if (animalOnPosition != null) {
+            return animalOnPosition;
         }
-
-        return animalOnPosition;
+        return grassPieces.get(position);
     }
     public GrassField(int n){
 
