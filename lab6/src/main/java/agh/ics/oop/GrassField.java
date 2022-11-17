@@ -1,22 +1,19 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap{
 
-    private final ArrayList<Grass> grassPieces = new ArrayList<>();
+    private final HashMap<Vector2d, Grass> grassPieces = new HashMap<>();
 
 
     public Object objectAt(Vector2d position) {
         Object animalOnPosition = super.objectAt(position);
 
         if (animalOnPosition == null) {
-            for (Grass grassPiece : this.grassPieces) {
-                if (grassPiece.getPosition().equals(position)) {
-                    return grassPiece;
-                }
-            }
+            return grassPieces.get(position);
         }
 
         return animalOnPosition;
@@ -38,7 +35,7 @@ public class GrassField extends AbstractWorldMap{
             int randomIndex =  random.nextInt(allPositions.size());
             Vector2d grassPosition = allPositions.get(randomIndex);
             Grass grassPiece = new Grass(grassPosition);
-            this.grassPieces.add(grassPiece);
+            this.grassPieces.put(grassPosition, grassPiece);
             allPositions.remove(grassPosition);
         }
     }
@@ -49,22 +46,22 @@ public class GrassField extends AbstractWorldMap{
     @Override
     protected Vector2d getLowerLeftBound(){
         Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for(Animal animal : this.animals){
-            lowerLeft = animal.getPosition().lowerLeft(lowerLeft);
+        for(Vector2d position : this.animals.keySet()){
+            lowerLeft = position.lowerLeft(lowerLeft);
         }
-        for(Grass grassPiece : this.grassPieces){
-            lowerLeft = grassPiece.getPosition().lowerLeft(lowerLeft);
+        for(Vector2d position : this.grassPieces.keySet()){
+            lowerLeft = position.lowerLeft(lowerLeft);
         }
         return lowerLeft;
     }
     @Override
     protected Vector2d getUpperRightBound(){
         Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for(Animal animal : this.animals){
-            upperRight = animal.getPosition().upperRight(upperRight);
+        for(Vector2d position : this.animals.keySet()){
+            upperRight = position.upperRight(upperRight);
         }
-        for(Grass grassPiece : this.grassPieces){
-            upperRight = grassPiece.getPosition().upperRight(upperRight);
+        for(Vector2d position : this.grassPieces.keySet()){
+            upperRight = position.upperRight(upperRight);
         }
         return upperRight;
     }

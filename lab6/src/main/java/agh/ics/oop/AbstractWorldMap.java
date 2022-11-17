@@ -4,33 +4,25 @@ import java.util.*;
 
 public abstract class AbstractWorldMap implements IWorldMap {
 
-    protected ArrayList<Animal> animals = new ArrayList<>();
+    protected HashMap<Vector2d, Animal> animals = new HashMap();
     private MapVisualizer visualizer = new MapVisualizer(this);
 
 
     @Override
     public Object objectAt(Vector2d position){
-        for (Animal animal : this.animals){
-            if (animal.getPosition().equals(position)){
-                return animal;
-            }
-        }
-        return null;
+        return this.animals.containsKey(position);
     }
     @Override
     public boolean place(Animal animal) {
         if (this.canMoveTo(animal.getPosition())){
-            this.animals.add(animal);
+            animals.put(animal.getPosition(), animal);
             return true;
         }
         return false;
     }
-
     public String toString(){
         return this.visualizer.draw(getLowerLeftBound(), getUpperRightBound());
-        //return this.visualizer.draw(getLowerLeftBound(), getupperRight());
     }
-
     protected abstract Vector2d getLowerLeftBound();
     protected abstract Vector2d getUpperRightBound();
 
