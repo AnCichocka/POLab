@@ -20,7 +20,8 @@ public class Animal implements IMapElement{
         this.position = initialPosition;
         this.map = map;
         this.observers = new ArrayList<>();
-        this.observers.add((IPositionChangeObserver) map);
+        //addObserver((IPositionChangeObserver) map);
+        //lepiej w place albo IWorldMap extends IPos...
     }
     public Vector2d getPosition() {
         return new Vector2d(this.position.x, this.position.y);

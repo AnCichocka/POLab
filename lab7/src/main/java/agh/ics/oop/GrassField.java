@@ -17,6 +17,7 @@ public class GrassField extends AbstractWorldMap{
         }
         return grassPieces.get(position);
     }
+
     public GrassField(int n){
 
         int bound = (int)Math.floor(Math.sqrt(n*10));
@@ -35,6 +36,7 @@ public class GrassField extends AbstractWorldMap{
             Vector2d grassPosition = allPositions.get(randomIndex);
             Grass grassPiece = new Grass(grassPosition);
             this.grassPieces.put(grassPosition, grassPiece);
+            this.mapBoundary.add(grassPosition);
             allPositions.remove(grassPosition);
         }
     }
@@ -42,30 +44,14 @@ public class GrassField extends AbstractWorldMap{
     public boolean canMoveTo(Vector2d position) {
         return (!this.isOccupied(position) || (this.isOccupied(position) && objectAt(position) instanceof Grass));
     }
+
     @Override
-    protected Vector2d getLowerLeftBound(){
-        Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for(Vector2d position : this.animals.keySet()){
-            lowerLeft = position.lowerLeft(lowerLeft);
-        }
-        for(Vector2d position : this.grassPieces.keySet()){
-            lowerLeft = position.lowerLeft(lowerLeft);
-        }
-        return lowerLeft;
-    }
-    @Override
-    protected Vector2d getUpperRightBound(){
-        Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for(Vector2d position : this.animals.keySet()){
-            upperRight = position.upperRight(upperRight);
-        }
-        for(Vector2d position : this.grassPieces.keySet()){
-            upperRight = position.upperRight(upperRight);
-        }
-        return upperRight;
+    public Vector2d getLowerLeftBound() {
+        return this.mapBoundary.getLowerLeft();
     }
 
-    // Bounds = new bounds(newVector(0,0)...)
-    // bounds.lowerLeft
-    //metofa getLower ... ma zwracać rekord Bounds
+    @Override
+    public Vector2d getUpperRightBound() {
+        return this.mapBoundary.getUpperRight();
+    }
 }

@@ -14,12 +14,11 @@ public class RectangularMap extends AbstractWorldMap{
     public boolean canMoveTo(Vector2d position){
         return position.follows(this.lowerLeft) && position.precedes(this.upperRight) && !this.isOccupied(position);
     }
-    @Override
-    protected Vector2d getLowerLeftBound(){
+
+    public Vector2d getLowerLeftBound(){
         return this.lowerLeft;
     }
-    @Override
-    protected Vector2d getUpperRightBound(){
+    public Vector2d getUpperRightBound(){
         return this.upperRight;
     }
 

@@ -6,6 +6,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     private MapVisualizer visualizer = new MapVisualizer(this);
     protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected MapBoundary mapBoundary = new MapBoundary();
 
 
     @Override
@@ -13,23 +14,27 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         return this.animals.get(position);
     }
     @Override
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal){
         if (this.canMoveTo(animal.getPosition())){
             animals.put(animal.getPosition(), animal);
+            this.mapBoundary.add(animal.getPosition());
+            animal.addObserver(this);
             return true;
         }
-        return false;
+        else{
+            throw new IllegalArgumentException(animal.getPosition() + " is invalid position");
+        }
     }
-    public String toString(){
-        return this.visualizer.draw(getLowerLeftBound(), getUpperRightBound());
-    }
-    protected abstract Vector2d getLowerLeftBound();
-    protected abstract Vector2d getUpperRightBound();
+    @Override
+    public String toString(){return this.visualizer.draw(getLowerLeftBound(), getUpperRightBound());}
+    public abstract Vector2d getLowerLeftBound();
+    public abstract Vector2d getUpperRightBound();
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         Animal animal = animals.get(oldPosition);
         animals.remove(oldPosition);
         animals.put(newPosition, animal);
+        this.mapBoundary.positionChanged(oldPosition, newPosition);
     }
 
 
