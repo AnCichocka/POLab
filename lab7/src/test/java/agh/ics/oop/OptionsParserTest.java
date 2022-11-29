@@ -31,12 +31,11 @@ class OptionsParserTest {
     @Test
     void IsParsingCorrectWithIncorrectInput(){
         OptionsParser parser = new OptionsParser();
-        String[] beforeParsing = {"b", "ab", "r", "f", "tomato", "left"};
+        String[] beforeParsing = {"b", "tomato", "r", "f", "left"};
 
-        MoveDirection[] afterParsing = parser.parse(beforeParsing);
-        MoveDirection[] expectedResult = {MoveDirection.BACKWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.LEFT};
-        assertArrayEquals(afterParsing, expectedResult);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> { parser.parse(beforeParsing); });
 
+        assertEquals("tomato" + " is not legal move specification", exception.getMessage());
     }
 
 }

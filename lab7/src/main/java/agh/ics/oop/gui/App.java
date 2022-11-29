@@ -14,7 +14,8 @@ public class App extends Application {
     private AbstractWorldMap map;
 
     @Override
-    public void init() throws Exception{
+    public void init() throws Exception {
+
         super.init();
         Parameters parameters = getParameters();
         String[] args = parameters.getRaw().toArray(new String[0]);
@@ -22,12 +23,11 @@ public class App extends Application {
         try{
             MoveDirection[] directions = new OptionsParser().parse(args);
             this.map = new GrassField(10);
-            Vector2d[] positions = { new Vector2d(0,0), new Vector2d(1,0) };
-            IEngine engine = new SimulationEngine(directions, this.map, positions);
+//            Vector2d[] positions = { new Vector2d(0,0), new Vector2d(1,0) };
+//            IEngine engine = new SimulationEngine(directions, this.map, positions);
 
-            System.out.println(map);
-            engine.run();
-            System.out.println(map);
+//            engine.run();
+//            System.out.println(map);
         }
         catch(IllegalArgumentException ex){
             System.err.println(ex);
@@ -46,8 +46,8 @@ public class App extends Application {
         int width = 40;
         int height = 40;
 
-        System.out.println("minX: " + minX + " maxX: " + maxX);
-        System.out.println("minY: " + minY + " maxY: " + maxY);
+//        System.out.println("minX: " + minX + " maxX: " + maxX);
+//        System.out.println("minY: " + minY + " maxY: " + maxY);
 
         GridPane gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
@@ -86,7 +86,7 @@ public class App extends Application {
             }
         }
 
-        Scene scene = new Scene(gridPane, 400, 400);
+        Scene scene = new Scene(gridPane, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
