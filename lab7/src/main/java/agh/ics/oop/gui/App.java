@@ -17,21 +17,18 @@ public class App extends Application {
     public void init() throws Exception {
 
         super.init();
-        Parameters parameters = getParameters();
-        String[] args = parameters.getRaw().toArray(new String[0]);
+        String[] args = getParameters().getRaw().toArray(new String[0]);
 
         try{
             MoveDirection[] directions = new OptionsParser().parse(args);
+            //umieszczam zwierzątka i nimi nie poruszam
             this.map = new GrassField(10);
-//            Vector2d[] positions = { new Vector2d(0,0), new Vector2d(1,0) };
-//            IEngine engine = new SimulationEngine(directions, this.map, positions);
-
-//            engine.run();
-//            System.out.println(map);
+            this.map.place(new Animal(this.map, new Vector2d(2,2)));
+            this.map.place(new Animal(this.map, new Vector2d(0,0)));
         }
         catch(IllegalArgumentException ex){
             System.err.println(ex);
-            System.exit(0);
+            System.exit(1);
         }
     }
 
