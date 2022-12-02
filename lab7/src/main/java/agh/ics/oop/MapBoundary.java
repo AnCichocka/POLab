@@ -4,14 +4,14 @@ import java.util.*;
 
 public class MapBoundary implements IPositionChangeObserver{
 
-    //dodajemy vectory zwierzątek i trawy, trawy i zwierzęta o tym samym wektorze MUSZĄ mieć rózne pozycje - gdy zwierzątko się cofnie,
-    //a była pod nim trawa to trawa nie zostanie inaczej uwzględniona
+    //TreeSet<IMapElemeny>((e1,e2)->{
+    // if e1 < e2:
+    // return e1.getPosition()})
 
-    SortedSet<Vector2d> elementsX = new TreeSet<>(new xComparator());
-    SortedSet<Vector2d> elementsY = new TreeSet<>(new yComparator());
+    private SortedSet<Vector2d> elementsX = new TreeSet<>(new xComparator());
 
-//    SortedSet<Vector2d> animalsX = new TreeSet<>(new XComparator());
-//    SortedSet<Vector2d> animalsY = new TreeSet<>(new YComparator());
+    //private SortedSet<IMapElement> elementsX = new TreeSet<>Comparator.comparingInt(element -> element.getPosition().x).thenComparing(element -> element.getPosition().y)
+    private SortedSet<Vector2d> elementsY = new TreeSet<>(new yComparator());
 
     public void add(Vector2d position){
         elementsY.add(position);
