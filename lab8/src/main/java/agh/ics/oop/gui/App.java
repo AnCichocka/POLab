@@ -19,8 +19,8 @@ public class App extends Application {
     private int maxX;
     private int maxY;
 
-    static final int CELL_WIDTH = 40;
-    static final int CELL_HEIGHT = 40;
+    static final int CELL_WIDTH = 60;
+    static final int CELL_HEIGHT = 60;
     private SimulationEngine engine;
     private Thread threadEngine;
 
@@ -68,7 +68,7 @@ public class App extends Application {
 
         VBox sceneContainer = new VBox(buttonContainer, this.gridPane);
 
-        Scene scene = new Scene(sceneContainer, CELL_WIDTH*(Math.abs(maxX-minX) + 2), CELL_HEIGHT*(Math.abs(maxY-minY) + 2));
+        Scene scene = new Scene(sceneContainer, CELL_WIDTH*(Math.abs(maxX-minX) + 2), CELL_HEIGHT*(Math.abs(maxY-minY) + 3));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -123,9 +123,10 @@ public class App extends Application {
                 Vector2d position = new Vector2d(x, y);
                 if (this.map.isOccupied(position)) {
                     Object worldMapElement = this.map.objectAt(position);
-                    Label label = new Label(worldMapElement.toString());
-                    gridPane.add(label, position.x - minX + 1, maxY - position.y + 1);
-                    GridPane.setHalignment(label, HPos.CENTER);
+                    GuiElementBox guiElementBox = new GuiElementBox((IMapElement) worldMapElement);
+                    VBox elementContainer = guiElementBox.getElementContainer();
+                    gridPane.add(elementContainer, position.x - minX + 1, maxY - position.y + 1);
+                    GridPane.setHalignment(elementContainer, HPos.CENTER);
                 }
             }
         }
