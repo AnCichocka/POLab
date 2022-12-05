@@ -22,17 +22,17 @@ public class App extends Application {
     static final int CELL_WIDTH = 60;
     static final int CELL_HEIGHT = 60;
     private SimulationEngine engine;
-    private Thread threadEngine;
 
     @Override
     public void init() throws Exception {
 
         super.init();
-        String[] args = getParameters().getRaw().toArray(new String[0]);
+//        String[] args = getParameters().getRaw().toArray(new String[0]);
 
         try{
-            AbstractWorldMap map = new GrassField(8);
+            AbstractWorldMap map = new GrassField(10);
             Vector2d[] positions = {new Vector2d(0, 0), new Vector2d(3, 3)};
+            System.out.print("Got here");
             this.map = map;
             this.engine = new SimulationEngine(this.map, positions, this, 1000);
         }

@@ -17,6 +17,8 @@ public class SimulationEngine implements IEngine, Runnable{
         this.moveDirections = moveDirections;
         this.map = map;
         this.animalsVectors = animalsVectors;
+
+        this.addAnimals();
     }
     public SimulationEngine(MoveDirection[] moveDirections, IWorldMap map, Vector2d[] animalsVectors, App app, int moveDelay){
         this(moveDirections, map, animalsVectors);
@@ -28,37 +30,33 @@ public class SimulationEngine implements IEngine, Runnable{
         this.animalsVectors = animalsVectors;
         this.app = app;
         this.moveDelay = moveDelay;
+
+        this.addAnimals();
     }
 
     public void setDirection(MoveDirection[] moveDirection){
         this.moveDirections = moveDirection;
     }
-    private int addAndReturnNumberOfAnimals(){
+    private void addAnimals(){
 
-        int numberOfAnimalsOnMap = 0;
         for (Vector2d animalVector : animalsVectors){
             Animal animalToInsert = new Animal(this.map, animalVector);
             if(this.map.place(animalToInsert)){
                 this.animalsOnMap.add(animalToInsert);
-                numberOfAnimalsOnMap++;
             }
         }
-        return numberOfAnimalsOnMap;
     }
     @Override
     public void run(){
-        System.out.println("Thread started.");
+        //System.out.println("Thread started.");
 //        System.out.println(this.map);
-        int numberOfAnimalsOnMap = this.addAndReturnNumberOfAnimals();
-            //później można wokół całego fora, żeby przerywało cały wątek a nie jeden ruch
+        int numberOfAnimalsOnMap = this.animalsOnMap.size();
             try{
                 Thread.sleep(moveDelay);
                 for (int i = 0; i < this.moveDirections.length; i++) {
-//            System.out.println("MOVE: " + moveDirections[i]);
                     Animal animal = this.animalsOnMap.get(i % numberOfAnimalsOnMap);
                     animal.move(this.moveDirections[i]);
-                    System.out.println(this.map);
-                    //wydrukuj ponownie mapę
+                    //System.out.println(this.map);
                     this.app.refresh();
                     Thread.sleep(moveDelay);
                 }
@@ -66,6 +64,5 @@ public class SimulationEngine implements IEngine, Runnable{
             catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            System.out.println(this.map);
        }
 }
