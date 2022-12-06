@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.gui.App;
+import agh.ics.oop.gui.AppVisualizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class SimulationEngine implements IEngine, Runnable{
     private final IWorldMap map;
     private final Vector2d[] animalsVectors;
     private final List<Animal> animalsOnMap = new ArrayList<>();
-    private App app;
+    protected AppVisualizer appVisualizer;
     private int moveDelay;
 
     public SimulationEngine(MoveDirection[] moveDirections, IWorldMap map, Vector2d[] animalsVectors){
@@ -20,15 +20,15 @@ public class SimulationEngine implements IEngine, Runnable{
 
         this.addAnimals();
     }
-    public SimulationEngine(MoveDirection[] moveDirections, IWorldMap map, Vector2d[] animalsVectors, App app, int moveDelay){
+    public SimulationEngine(MoveDirection[] moveDirections, IWorldMap map, Vector2d[] animalsVectors, AppVisualizer appVisualizer, int moveDelay){
         this(moveDirections, map, animalsVectors);
-        this.app = app;
+        this.appVisualizer = appVisualizer;
         this.moveDelay = moveDelay;
     }
-    public SimulationEngine(IWorldMap map, Vector2d[] animalsVectors, App app, int moveDelay){
+    public SimulationEngine(IWorldMap map, Vector2d[] animalsVectors, AppVisualizer appVisualizer, int moveDelay){
         this.map = map;
         this.animalsVectors = animalsVectors;
-        this.app = app;
+        this.appVisualizer = appVisualizer;
         this.moveDelay = moveDelay;
 
         this.addAnimals();
@@ -43,12 +43,12 @@ public class SimulationEngine implements IEngine, Runnable{
             Animal animalToInsert = new Animal(this.map, animalVector);
             if(this.map.place(animalToInsert)){
                 this.animalsOnMap.add(animalToInsert);
+                animalToInsert.addObserver(this.appVisualizer);
             }
         }
     }
     @Override
     public void run(){
-        //System.out.println("Thread started.");
 //        System.out.println(this.map);
         int numberOfAnimalsOnMap = this.animalsOnMap.size();
             try{
@@ -57,7 +57,6 @@ public class SimulationEngine implements IEngine, Runnable{
                     Animal animal = this.animalsOnMap.get(i % numberOfAnimalsOnMap);
                     animal.move(this.moveDirections[i]);
                     //System.out.println(this.map);
-                    this.app.refresh();
                     Thread.sleep(moveDelay);
                 }
             }

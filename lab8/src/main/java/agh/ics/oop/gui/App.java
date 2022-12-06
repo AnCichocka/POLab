@@ -21,38 +21,45 @@ public class App extends Application {
 
     static final int CELL_WIDTH = 60;
     static final int CELL_HEIGHT = 60;
+    static final int BUTTON_HEIGHT = 25;
     private SimulationEngine engine;
 
     @Override
     public void init() throws Exception {
 
         super.init();
-//        String[] args = getParameters().getRaw().toArray(new String[0]);
 
         try{
             AbstractWorldMap map = new GrassField(10);
             Vector2d[] positions = {new Vector2d(0, 0), new Vector2d(3, 3)};
-            System.out.print("Got here");
             this.map = map;
-            this.engine = new SimulationEngine(this.map, positions, this, 1000);
+            AppVisualizer appVisualizer = new AppVisualizer(this);
+            this.engine = new SimulationEngine(this.map, positions, appVisualizer, 1000);
         }
         catch(IllegalArgumentException ex){
             System.err.println(ex);
             System.exit(1);
         }
     }
-
     @Override
     public void start(Stage primaryStage){
 
-        Button buttonStart = new Button("button");
+        this.gridPane = new GridPane();
+        this.createScene();
+
+        VBox sceneContainer = new VBox(getButtonContainer(), this.gridPane);
+
+        Scene scene = new Scene(sceneContainer, CELL_WIDTH*(Math.abs(maxX-minX) + 2), CELL_HEIGHT*(Math.abs(maxY-minY) + 2) + BUTTON_HEIGHT);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    public HBox getButtonContainer(){
+        Button buttonStart = new Button("start");
         TextField text = new TextField();
-
-
 
         HBox buttonContainer = new HBox(text, buttonStart);
 
-        // gte args and set new directions, start new thread
         buttonStart.setOnAction(event -> {
             String[] args = text.getCharacters().toString().split(" ");
             MoveDirection[] moveDirections = new OptionsParser().parse(args);
@@ -60,19 +67,8 @@ public class App extends Application {
             Thread thread = new Thread(this.engine);
             thread.start();
         });
-
-
-        this.gridPane = new GridPane();
-
-        this.createScene();
-
-        VBox sceneContainer = new VBox(buttonContainer, this.gridPane);
-
-        Scene scene = new Scene(sceneContainer, CELL_WIDTH*(Math.abs(maxX-minX) + 2), CELL_HEIGHT*(Math.abs(maxY-minY) + 3));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return buttonContainer;
     }
-
     public void createScene(){
 
         this.updateMinAndMax();
@@ -85,7 +81,6 @@ public class App extends Application {
 
         gridPane.setGridLinesVisible(true);
     }
-
     public void updateMinAndMax(){
         minX = this.map.getLowerLeftBound().x;
         minY = this.map.getLowerLeftBound().y;
@@ -131,7 +126,6 @@ public class App extends Application {
             }
         }
     }
-
     public void refresh() {
         Platform.runLater( () -> {
             this.gridPane.getChildren().clear();

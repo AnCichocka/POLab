@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import javafx.geometry.Orientation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +46,7 @@ public class Animal implements IMapElement{
     public void move(MoveDirection direction){
 
         Vector2d newPosition = position;
+        MapDirection oldOrientation = orientation;
 
         switch (direction) {
             case RIGHT -> { this.orientation = this.orientation.next(); }
@@ -51,7 +54,7 @@ public class Animal implements IMapElement{
             case FORWARD -> { newPosition = this.position.add(this.orientation.toUnitVector()); }
             case BACKWARD -> { newPosition = this.position.subtract(this.orientation.toUnitVector()); }
         }
-        if (map.canMoveTo(newPosition)){
+        if (map.canMoveTo(newPosition) || !oldOrientation.equals(this.orientation)){
             this.positionChanged(this.position, newPosition);
             this.position = newPosition;
         }
